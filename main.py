@@ -15,6 +15,10 @@ from api.queries import (
     get_users_types_resolver,
     get_table_types_resolver,
     get_zones_resolver,
+    get_tables_resolver,
+    get_table_resolver,
+    get_reservation_resolver,
+    get_reservations_resolver
 )
 
 query = ObjectType("Query")
@@ -25,6 +29,10 @@ query.set_field("getUserById", get_user_resolver)
 query.set_field("getUserTypes", get_users_types_resolver)
 query.set_field("getTableTypes", get_table_types_resolver)
 query.set_field("getZones", get_zones_resolver)
+query.set_field("getTableById", get_table_resolver)
+query.set_field("getTables", get_tables_resolver)
+query.set_field("getReservationById", get_reservation_resolver)
+query.set_field("getReservations", get_reservations_resolver)
 
 mutation.set_field("createUser", create_user_resolver)
 type_defs = load_schema_from_path("./schema.gql")

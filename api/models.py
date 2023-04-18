@@ -108,3 +108,61 @@ class CLocation(db.Model):
     
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+class Table(db.Model):
+    __tablename__ = "CTable"
+    id = db.Column(db.Integer, primary_key=True)
+    capacity = db.Column(db.Integer)
+    idlocation = db.Column(db.Integer)
+    idtype = db.Column(db.Integer)
+    status = db.Column(db.String(20))
+
+    @property
+    def serialize(self):
+        """Return object data in serializeable format"""
+        return {
+            "id": self.id,
+            "capacity": self.capacity,
+            "idlocation": self.idlocation,
+            "idtype": self.idtype,
+            "status": self.status
+        }
+
+    def __repr__(self):
+        return f"<Table id={self.id}>"
+    
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+    
+class Reservation(db.Model):
+    __tablename__ = "Reservations"
+    id = db.Column(db.Integer, primary_key=True)
+    iduser = db.Column(db.Integer)
+    idtable = db.Column(db.Integer)
+    reservation_date = db.Column(
+        "reservation_date", db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
+    date_created = db.Column(
+        "date_created", db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
+    date_updated = db.Column(
+        "date_updated", db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
+
+    @property
+    def serialize(self):
+        """Return object data in serializeable format"""
+        return {
+            "id": self.id,
+            "iduser": self.iduser,
+            "idtable": self.idtable,
+            "reservation_date": self.reservation_date,
+            "date_created":self.date_created,
+            "date_updated":self.date_updated
+        }
+
+    def __repr__(self):
+        return f"<Reservatino Id={self.id}>"
+    
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
